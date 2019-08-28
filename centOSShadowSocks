@@ -1,0 +1,32 @@
+yum install python-setuptools
+easy_install pip
+pip install shadowsocks
+vi  /etc/shadowsocks.json
+{
+    "server":"0.0.0.0",
+    "server_port":1234,
+    "local_address": "127.0.0.1",
+    "local_port":1080,
+    "password":"替换成ss的密码",
+    "timeout":300,
+    "method":"aes-256-cfb"
+}
+vi /usr/lib/systemd/system/ss.service
+
+[Unit]
+Description=Shadowsocks Server
+After=network.target
+[Service]
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /run/shadowsocks
+ExecStartPre=/bin/chown nobody:nobody /run/shadowsocks
+ExecStart=/usr/bin/ssserver -c /etc/shadowsocks.json
+Restart=on-abort
+User=nobody
+Group=nobody
+UMask=0027
+[Install]
+WantedBy=multi-user.target
+
+systemctl start ss
+systemctl enable ss
