@@ -1,13 +1,13 @@
 yum install python-setuptools
 easy_install pip
 pip install shadowsocks
-vi  /etc/shadowsocks.json
+vi  ~/shadowsocks.json
 {
-    "server":"0.0.0.0",
-    "server_port":1234,
+    "server":"45.76.216.87",
+    "server_port":10992,
     "local_address": "127.0.0.1",
     "local_port":1080,
-    "password":"替换成ss的密码",
+    "password":"Oh5Djj6Nf5erEKJr",
     "timeout":300,
     "method":"aes-256-cfb"
 }
@@ -20,7 +20,7 @@ After=network.target
 PermissionsStartOnly=true
 ExecStartPre=/bin/mkdir -p /run/shadowsocks
 ExecStartPre=/bin/chown nobody:nobody /run/shadowsocks
-ExecStart=/usr/bin/ssserver -c /etc/shadowsocks.json
+ExecStart=/usr/bin/ssserver -c ~/shadowsocks.json
 Restart=on-abort
 User=nobody
 Group=nobody
